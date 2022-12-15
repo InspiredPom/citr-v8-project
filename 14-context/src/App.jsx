@@ -8,14 +8,6 @@ import AdoptedPetContext from "./AdoptedPetContext";
 //import Details from "./Details";
 //import SearchParams from "./SearchParams";
 //splitting these ^^ through lazy
-
-const Details = lazy(() => import("./Details"));
-const SearchParams = lazy(() => import("./SearchParams"));
-//import is in javascript
-//these are not required, not loaded right away
-//dynamic tho...?^^
-
-
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -25,19 +17,27 @@ const queryClient = new QueryClient({
   },
 });
 
+
+
+
+const Details = lazy(() => import("./Details"));
+const SearchParams = lazy(() => import("./SearchParams"));
+//import is in javascript
+//these are not required, not loaded right away
+//dynamic tho...?^^
+
+
+
+
 const App = () => {
   const adoptedPet = useState(null);
   return (
-    <div className = "p-0 m-0" 
-    /* no padding -p ,no margin -m */
-    style = {{
-      background:"url(https://pets-images.dev-apis.com/pets/wallpaperA.jpg)",
-  }}
-  >
+    <div>
       <BrowserRouter>
         <AdoptedPetContext.Provider value={adoptedPet}>
           <QueryClientProvider client={queryClient}>
-            <Suspense fallback = {
+            <Suspense 
+              fallback = {
               <div className="loading-pane">
                 <h2 className="loader">Loading...</h2>
               </div>

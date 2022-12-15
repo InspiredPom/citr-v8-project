@@ -7,6 +7,7 @@ import ErrorBoundary from "./ErrorBoundary";
 import fetchPet from "./fetchPet";
 import Carousel from "./Carousel";
 
+
 const Details = () => {
   const { id } = useParams();
   const [showModal, setShowModal] = useState(false);
