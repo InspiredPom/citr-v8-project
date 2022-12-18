@@ -1,13 +1,11 @@
 import { createRoot } from "react-dom/client";
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { useState,lazy,Suspense } from "react";
+import { useState } from "react";
 import AdoptedPetContext from "./AdoptedPetContext";
+import Details from "./Details";
+import SearchParams from "./SearchParams";
 
-//These are all static^^
-//import Details from "./Details";
-//import SearchParams from "./SearchParams";
-//splitting these ^^ through lazy
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -17,18 +15,6 @@ const queryClient = new QueryClient({
   },
 });
 
-
-
-
-const Details = lazy(() => import("./Details"));
-const SearchParams = lazy(() => import("./SearchParams"));
-//import is in javascript
-//these are not required, not loaded right away
-//dynamic tho...?^^
-
-
-
-
 const App = () => {
   const adoptedPet = useState(null);
   return (
@@ -36,21 +22,13 @@ const App = () => {
       <BrowserRouter>
         <AdoptedPetContext.Provider value={adoptedPet}>
           <QueryClientProvider client={queryClient}>
-            <Suspense 
-              fallback = {
-              <div className="loading-pane">
-                <h2 className="loader">Loading...</h2>
-              </div>
-            }
-          >
             <header>
-              <Link to = "/"> Adopt Me!</Link>
+              <Link to="/">Adopt Me!</Link>
             </header>
             <Routes>
               <Route path="/details/:id" element={<Details />} />
               <Route path="/" element={<SearchParams />} />
             </Routes>
-            </Suspense>
           </QueryClientProvider>
         </AdoptedPetContext.Provider>
       </BrowserRouter>
