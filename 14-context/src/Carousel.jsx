@@ -14,7 +14,6 @@ class Carousel extends Component {
       active: +event.target.dataset.index,
     });
   };
-
   render() {
     const { active } = this.state;
     const { images } = this.props;
