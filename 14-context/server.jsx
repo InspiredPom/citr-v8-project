@@ -32,7 +32,7 @@ app.use((req, res) => {
   const stream = renderApp(req.url, {
     //this grabs server
     onShellReady() {
-      //if it is the crawler
+      //if it is the crawler,do nothing here
       stream.pipe(res);
       //pipe is response object and react stream working together
 
@@ -43,6 +43,7 @@ app.use((req, res) => {
     onAllReady() {
       res.write(parts[1]);
       res.end();
+      //if it is the crawler - stream.pipe(res)
     },
     onError(err) {
       console.error(err);
